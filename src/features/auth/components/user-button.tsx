@@ -8,10 +8,12 @@ import {
   DropdownMenuTrigger,
 } from "@radix-ui/react-dropdown-menu";
 
-import { Loader } from "lucide-react";
-import { useCurrentUser } from "../hooks/use-current-users";
+import { Loader, LogOut } from "lucide-react";
+import { useCurrentUser } from "../api/use-current-users";
+import { useAuthActions } from "@convex-dev/auth/react";
 
 export const UserButton = () => {
+  const { signOut } = useAuthActions();
   const { data, isLoading } = useCurrentUser();
 
   if (isLoading) {
@@ -32,14 +34,17 @@ export const UserButton = () => {
             alt={name}
             src={image}
           />
-          <AvatarFallback>{avatarFallBack}</AvatarFallback>
+          <AvatarFallback className="bg-sky-500 text-white">{avatarFallBack}</AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent
         align="center"
         side="right"
         className="w-60">
-        <DropdownMenuItem></DropdownMenuItem>
+        <DropdownMenuItem onClick={() => signOut()} className="h-10">
+          <LogOut className="size-4 mr-2"/>
+          Log out
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
