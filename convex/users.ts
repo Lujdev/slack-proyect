@@ -7,7 +7,7 @@ export const current = query({
   handler: async (ctx) => {
     const userId = await getAuthUserId(ctx);
     if (userId === null) {
-      throw new Error("El cliente no esta autenticado!");
+      return null;
     }
     return await ctx.db.get(userId);
   },

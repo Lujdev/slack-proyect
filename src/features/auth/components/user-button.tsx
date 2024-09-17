@@ -8,9 +8,9 @@ import {
   DropdownMenuTrigger,
 } from "@radix-ui/react-dropdown-menu";
 
+import { useAuthActions } from "@convex-dev/auth/react";
 import { Loader, LogOut } from "lucide-react";
 import { useCurrentUser } from "../api/use-current-users";
-import { useAuthActions } from "@convex-dev/auth/react";
 
 export const UserButton = () => {
   const { signOut } = useAuthActions();
@@ -34,15 +34,19 @@ export const UserButton = () => {
             alt={name}
             src={image}
           />
-          <AvatarFallback className="bg-sky-500 text-white">{avatarFallBack}</AvatarFallback>
+          <AvatarFallback className="bg-sky-500 text-white">
+            {avatarFallBack}
+          </AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent
         align="center"
         side="right"
         className="w-60">
-        <DropdownMenuItem onClick={() => signOut()} className="h-10">
-          <LogOut className="size-4 mr-2"/>
+        <DropdownMenuItem
+          onClick={() => signOut()}
+          className="h-10">
+          <LogOut className="size-4 mr-2" />
           Log out
         </DropdownMenuItem>
       </DropdownMenuContent>
